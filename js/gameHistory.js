@@ -7,6 +7,8 @@ if (!Parse.User.current()) {
 	window.location.href = "index.html";
 }
 
+// ==== Parse Model Object ====
+
 var GameRecord = Parse.Object.extend({
 	className : "GameRecord",
 	// user
@@ -17,8 +19,8 @@ var GameRecord = Parse.Object.extend({
 	// 自分のスキル階層
 	selfSkillTier : "4b",
 	// 2. 試合後の情報
-	// ゲーム開始日時
-	beginDateTime : "2000/1/1 00:00:00",
+	// ゲーム終了日時
+	endDateTime : "2000/1/1 00:00:00",
 	// 勝敗
 	conclusion : "win",
 	// 獲得 glory
@@ -38,14 +40,21 @@ var GameRecordList = Parse.Collection.extend({
 
 });
 
+// ==== Angular UI ====
+
+
+// ==== User Action ====
+
 function addRecord() {
 	var gameRecord = new GameRecord();
+	gameRecord.set("user", Parse.User.current());
 	gameRecord.set("matching", matching.value);
 	gameRecord.set("conclusion", conclusion.value);
-	gameRecord.set("user", Parse.User.current());
+	gameRecord.set("endDateTime", new Date());
 	console.log("user =: " + gameRecord.get("user"));
 	console.log("matching =: " + gameRecord.get("matching"));
 	console.log("conclusion =: " + gameRecord.get("conclusion"));
+	console.log("endDateTime =: " + gameRecord.get("endDateTime"));
 
 	gameRecord.save(null, {
 		success : function(gameRecord) {
@@ -67,8 +76,7 @@ function updateTable() {
 	this.gameRecordList = new GameRecordList;
 
 	// Setup the query for the collection to look for GameRecord from the
-	// current
-	// user
+	// current user
 	this.gameRecordList.query = new Parse.Query(GameRecord);
 	this.gameRecordList.query.equalTo("user", Parse.User.current());
 

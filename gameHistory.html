@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="todoApp">
 <head>
 <meta charset="utf-8">
 <title>gameHistory</title>
@@ -32,7 +32,27 @@
 			<option>lose</option>
 		</select> <br> <input type="button" onClick="addRecord();"
 			value="addRecord">
-		</button>
 	</form>
+	<h3>Record list</h3>
+	<table>
+		<tr>
+			<th>matching</th>
+			<th>conclusion</th>
+			<th>endDateTime</th>
+		</tr>
+		<script>
+			var record = {
+				matching : 'rank',
+				conclusion : 'win',
+				endDateTime : '2001/01/01 01:01:01'
+			};
+		</script>
+		<tr>
+			<td><span>{{record.matching}}</span></td>
+			<td><span>{{record.conclusion}}</span></td>
+			<td><span>{{record.endDateTime}}</span></td>
+		</tr>
+	</table>
+
 </body>
 </html>
