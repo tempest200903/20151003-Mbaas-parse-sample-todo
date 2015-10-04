@@ -34,7 +34,7 @@
             value="addRecord">
     </form>
     <h3>Record list</h3>
-    <div ng-controller="gameHistoryController as todoList">
+    <div ng-controller="gameHistoryController as gameRecordList">
         <table>
             <tr>
                 <th>matching</th>
@@ -46,18 +46,14 @@
                 <td><span>2. {{record1.conclusion}}</span></td>
                 <td><span>3. {{record1.endDateTime}}</span></td>
             </tr>
-            <tr ng-repeat="todo in todoList.todos">
+            <tr ng-repeat="gameRecord in gameRecordList.elements">
                 <!-- . -->
-                <td><span>{{todo.matching}}</span></td>
+                <td><span>{{gameRecord.matching}}</span></td>
                 <!-- . -->
-                <td>
-            <span>{{todo.conclusion}}</span>
-                </td>
+                <td><span>{{gameRecord.conclusion}}</span></td>
                 <!-- . -->
-                <td>
-                <span>{{todo.endDateTime}}</span>
-                </td>
-                </tr>
+                <td><span>{{gameRecord.endDateTime}}</span></td>
+            </tr>
         </table>
     </div>
 </body>

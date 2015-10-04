@@ -44,8 +44,8 @@ var GameRecordList = Parse.Collection.extend({
 
 angular.module('gameHistoryApp', []).controller('gameHistoryController',
 		function() {
-			var todoList = this;
-			todoList.todos = [ {
+			var gameRecordList = this;
+			gameRecordList.elements = [ {
 				matching : 'rank',
 				conclusion : 'win',
 				endDateTime : '2001/01/01 01:01:01'
