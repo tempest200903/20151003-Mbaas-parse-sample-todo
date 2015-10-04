@@ -1,58 +1,64 @@
 <!DOCTYPE html>
-<html ng-app="todoApp">
+<html ng-app="gameHistoryApp">
 <head>
 <meta charset="utf-8">
 <title>gameHistory</title>
 <link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/todo.css">
 <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-<script src="js/gameHistory.js"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="js/gameHistory.js"></script>
 </head>
 <body>
-	<h2>Hello</h2>
-	<div>
-		<label>Name:</label> <input type="text" ng-model="yourName"
-			placeholder="Enter a name here">
-		<hr>
-		<h1>Hello {{yourName}}!</h1>
-	</div>
-	<h2>Game History</h2>
-	<h3>Add record</h3>
-	<form action="">
-		<!-- カジュアル or ランク -->
-		<label>matching: </label><select id="matching">
-			<option>casual</option>
-			<option>rank</option>
-		</select> <br>
-		<!-- 勝敗 -->
-		<label>conclusion: </label><select id="conclusion">
-			<option>win</option>
-			<option>lose</option>
-		</select> <br> <input type="button" onClick="addRecord();"
-			value="addRecord">
-	</form>
-	<h3>Record list</h3>
-	<table>
-		<tr>
-			<th>matching</th>
-			<th>conclusion</th>
-			<th>endDateTime</th>
-		</tr>
-		<script>
-			var record = {
-				matching : 'rank',
-				conclusion : 'win',
-				endDateTime : '2001/01/01 01:01:01'
-			};
-		</script>
-		<tr>
-			<td><span>{{record.matching}}</span></td>
-			<td><span>{{record.conclusion}}</span></td>
-			<td><span>{{record.endDateTime}}</span></td>
-		</tr>
-	</table>
-
+    <h2>Hello</h2>
+    <div>
+        <label>Name:</label> <input type="text" ng-model="yourName"
+            placeholder="Enter a name here">
+        <hr>
+        <h1>Hello {{yourName}}!</h1>
+    </div>
+    <h2>Game History</h2>
+    <h3>Add record</h3>
+    <form action="">
+        <!-- カジュアル or ランク -->
+        <label>matching: </label><select id="matching">
+            <option>casual</option>
+            <option>rank</option>
+        </select> <br>
+        <!-- 勝敗 -->
+        <label>conclusion: </label><select id="conclusion">
+            <option>win</option>
+            <option>lose</option>
+        </select> <br> <input type="button" onClick="addRecord();"
+            value="addRecord">
+    </form>
+    <h3>Record list</h3>
+    <div ng-controller="gameHistoryController as todoList">
+        <table>
+            <tr>
+                <th>matching</th>
+                <th>conclusion</th>
+                <th>endDateTime</th>
+            </tr>
+            <tr>
+                <td><span>1. {{record1.matching}}</span></td>
+                <td><span>2. {{record1.conclusion}}</span></td>
+                <td><span>3. {{record1.endDateTime}}</span></td>
+            </tr>
+            <tr ng-repeat="todo in todoList.todos">
+                <!-- . -->
+                <td><span>{{todo.matching}}</span></td>
+                <!-- . -->
+                <td>
+            <span>{{todo.conclusion}}</span>
+                </td>
+                <!-- . -->
+                <td>
+                <span>{{todo.endDateTime}}</span>
+                </td>
+                </tr>
+        </table>
+    </div>
 </body>
 </html>

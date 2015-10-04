@@ -42,6 +42,20 @@ var GameRecordList = Parse.Collection.extend({
 
 // ==== Angular UI ====
 
+angular.module('gameHistoryApp', []).controller('gameHistoryController',
+		function() {
+			var todoList = this;
+			todoList.todos = [ {
+				matching : 'rank',
+				conclusion : 'win',
+				endDateTime : '2001/01/01 01:01:01'
+			}, {
+				matching : 'rank',
+				conclusion : 'win',
+				endDateTime : '2001/01/01 01:01:01'
+			} ];
+
+		});
 
 // ==== User Action ====
 
@@ -89,3 +103,9 @@ function updateTable() {
 	console.log("matching =: " + this.gameRecordList.models[0].get("matching"));
 
 }
+
+var record1 = {
+	matching : 'rank',
+	conclusion : 'win',
+	endDateTime : '2001/01/01 01:01:01'
+};
