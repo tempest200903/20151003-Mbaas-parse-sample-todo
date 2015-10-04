@@ -47,14 +47,13 @@ angular.module('gameHistoryApp', []).controller('gameHistoryController',
 			var gameRecordList = this;
 			gameRecordList.elements = [ {
 				matching : 'rank',
-				conclusion : 'win',
+				conclusion : 'lose',
 				endDateTime : '2001/01/01 01:01:01'
 			}, {
 				matching : 'rank',
-				conclusion : 'win',
+				conclusion : 'lose',
 				endDateTime : '2001/01/01 01:01:01'
 			} ];
-
 		});
 
 // ==== User Action ====
@@ -102,10 +101,5 @@ function updateTable() {
 			+ this.gameRecordList.models[0].get("conclusion"));
 	console.log("matching =: " + this.gameRecordList.models[0].get("matching"));
 
+	$scope.gameRecordList = this.gameRecordList;
 }
-
-var record1 = {
-	matching : 'rank',
-	conclusion : 'win',
-	endDateTime : '2001/01/01 01:01:01'
-};
