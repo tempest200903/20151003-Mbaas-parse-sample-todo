@@ -8,7 +8,7 @@
 <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 <script
     src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-<script src="js/gameHistory.js"></script>
+<script src="js/gameHistory1001.js"></script>
 </head>
 <body>
     <h2>Hello</h2>
@@ -30,8 +30,9 @@
         <label>conclusion: </label><select id="conclusion">
             <option>win</option>
             <option>lose</option>
-        </select> <br> <input type="button" onClick="addRecord();"
-            value="addRecord">
+        </select> <br>
+        <!--  -->
+        <input type="button" ng-click="addRecord();" value="addRecord">
     </form>
     <h3>Record list</h3>
     <div ng-controller="gameHistoryController as gameRecordList">
