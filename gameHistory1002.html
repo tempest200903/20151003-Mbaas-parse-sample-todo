@@ -16,17 +16,21 @@
             <p>Add record</p>
             <form action="">
                 <!-- カジュアル or ランク -->
-                <label>matching: </label><select id="matching">
+                <label>matching: </label>
+                <!--  -->
+                <select id="matching" ng-model="form.matching">
                     <option>casual</option>
                     <option>rank</option>
                 </select> <br>
                 <!-- 勝敗 -->
-                <label>conclusion: </label><select id="conclusion">
+                <label>conclusion: </label>
+                <!--  -->
+                <select id="conclusion" ng-model="form.conclusion">
                     <option>win</option>
                     <option>lose</option>
                 </select> <br>
                 <!--  -->
-                <input type="button" ng-click="addRecord();"
+                <input type="button" ng-click="addRecordByForm();"
                     value="addRecord">
             </form>
         </div>
