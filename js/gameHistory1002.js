@@ -18,4 +18,12 @@ gameHistory1002.controller('gameRecordListController', [ '$scope',
 				conclusion : 'conclusion3',
 				endDateTime : 'endDateTime3',
 			});
+			$scope.addRecord = function() {
+				console.log('addRecord');
+				$scope.gameRecordList.push({
+					matching : 'matching4',
+					conclusion : 'conclusion4',
+					endDateTime : 'endDateTime4',
+				});
+			}
 		} ]);
