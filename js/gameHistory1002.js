@@ -38,11 +38,9 @@ function queryInit() {
   var query = new Parse.Query(GameRecord);
   query.find({
     success : function(results) {
-      console.log("Successfully retrieved " + results.length + " records.");
       for (var i = 0; i < results.length; i++) {
         list.push(results[i]);
       }
-      console.log('list[1] =: ' + list[1]);
       uiInit();
     },
     error : function(error) {
@@ -67,7 +65,6 @@ function uiInit() {
       endDateTime : 'endDateTime1',
     });
     $scope.addRecordByForm = function() {
-      console.log('addRecordByForm');
       var gameRecord = new GameRecord();
       gameRecord.matching = $scope.form.matching;
       gameRecord.conclusion = $scope.form.conclusion;
@@ -76,13 +73,8 @@ function uiInit() {
       $scope.addRecord(gameRecord);
     }
     $scope.addRecord = function(gameRecord) {
-      console.log('addRecord');
       gameRecord.set("user", Parse.User.current());
       gameRecord.set("endDateTime", new Date());
-      console.log("user =: " + gameRecord.get("user"));
-      console.log("matching =: " + gameRecord.get("matching"));
-      console.log("conclusion =: " + gameRecord.get("conclusion"));
-      console.log("endDateTime =: " + gameRecord.get("endDateTime"));
       $scope.gameRecordList.push(gameRecord);
       gameRecord.save(null, {
         success : fs,
@@ -91,12 +83,8 @@ function uiInit() {
 
     }
     function gameRecordListControllerUpdate() {
-      console.log('gameRecordListControllerUpdate() ' + new Date());
-      console.log('gameRecordList =: ' + gameRecordList);
-      console.log('$scope.gameRecordList =: ' + $scope.gameRecordList);
       while ($scope.gameRecordList.length < gameRecordList.length) {
         $scope.gameRecordList.push(gameRecordList[$scope.gameRecordList.length]);
-        console.log('$scope.gameRecordList =: ' + $scope.gameRecordList);
       }
     }
     update = gameRecordListControllerUpdate;

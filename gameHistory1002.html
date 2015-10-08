@@ -6,54 +6,56 @@
 <link href="css/todos.css" media="all" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/gameHistory1002.css">
 <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-<script
-    src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="js/gameHistory1002.js"></script>
 </head>
 <body>
-    <div ng-controller="gameRecordListController">
-        <div class="panel">
-            <p>Add record</p>
-            <form action="">
-                <!-- カジュアル or ランク -->
-                <label>matching: </label>
-                <!--  -->
-                <select id="matching" ng-model="form.matching">
-                    <option>casual</option>
-                    <option>rank</option>
-                </select> <br>
-                <!-- 勝敗 -->
-                <label>conclusion: </label>
-                <!--  -->
-                <select id="conclusion" ng-model="form.conclusion">
-                    <option>win</option>
-                    <option>lose</option>
-                </select> <br>
-                <!--  -->
-                <input type="button" ng-click="addRecordByForm();"
-                    value="addRecord">
-            </form>
-        </div>
-        <div class="panel">
-            <p>Game Record list</p>
-            <table class="gameRecordList">
-                <tr class="gameRecordList">
-                    <th class="gameRecordList">matching</th>
-                    <th class="gameRecordList">conclusion</th>
-                    <th class="gameRecordList">endDateTime</th>
-                </tr>
-                <tr class="gameRecordList"
-                    ng-repeat="gameRecord in gameRecordList">
-                    <!-- . -->
-                    <td class="gameRecordList"><span>{{gameRecord.matching}}</span></td>
-                    <!-- . -->
-                    <td class="gameRecordList"><span>{{gameRecord.conclusion}}</span></td>
-                    <!-- . -->
-                    <td class="gameRecordList"><span>{{gameRecord.endDateTime}}</span></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+  <div ng-controller="gameRecordListController" class="panel">
+    <form action="">
+      <p>Game Record list</p>
+      <table class="gameRecordList">
+        <tr class="gameRecordList">
+          <th class="gameRecordList">matching</th>
+          <th class="gameRecordList">conclusion</th>
+          <th class="gameRecordList">endDateTime</th>
+          <th class="gameRecordList">add / delete</th>
+        </tr>
+        <tr class="gameRecordList">
+          <!-- . -->
+          <td class="gameRecordList">
+            <!-- カジュアル or ランク --> <label>matching: </label> <!--  --> <select
+            id="matching" ng-model="form.matching">
+              <option>casual</option>
+              <option>rank</option>
+          </select>
+          </td>
+          <!-- . -->
+          <td class="gameRecordList">
+            <!-- 勝敗 --> <label>conclusion: </label> <!--  --> <select id="conclusion"
+            ng-model="form.conclusion">
+              <option>win</option>
+              <option>lose</option>
+          </select> <br>
+          </td>
+          <td></td>
+          <!-- . -->
+          <td class="gameRecordList"><input type="button"
+            ng-click="addRecordByForm();" value="add"></td>
+        </tr>
+        <tr class="gameRecordList" ng-repeat="gameRecord in gameRecordList">
+          <!-- . -->
+          <td class="gameRecordList"><span>{{gameRecord.matching}}</span></td>
+          <!-- . -->
+          <td class="gameRecordList"><span>{{gameRecord.conclusion}}</span></td>
+          <!-- . -->
+          <td class="gameRecordList"><span>{{gameRecord.endDateTime}}</span></td>
+          <!-- . -->
+          <td class="gameRecordList"><input type="button"
+            ng-click="deleteRecordByForm();" value="delete"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
 
 </body>
 </html>
