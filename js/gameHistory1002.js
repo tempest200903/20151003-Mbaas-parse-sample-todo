@@ -91,6 +91,7 @@ function uiInit() {
 
     }
     function gameRecordListControllerUpdate() {
+      console.log('gameRecordListControllerUpdate() ' + new Date());
       console.log('gameRecordList =: ' + gameRecordList);
       console.log('$scope.gameRecordList =: ' + $scope.gameRecordList);
       while ($scope.gameRecordList.length < gameRecordList.length) {
@@ -99,8 +100,9 @@ function uiInit() {
       }
     }
     update = gameRecordListControllerUpdate;
-    // angular 初期化や angular イベント以外のタイミングで $scope.gameRecordList を更新しても、 UI には反映されない。
-    setInterval("update();", 1000);
+    setInterval(function() {
+      $scope.$apply(update);
+    }, 1000);
   } ]);
 }
 uiInit();
