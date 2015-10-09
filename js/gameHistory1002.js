@@ -41,7 +41,7 @@ function queryInit() {
       for (var i = 0; i < results.length; i++) {
         list.push(results[i]);
       }
-      uiInit();
+      uiInit(list);
     },
     error : function(error) {
       console.log("Error: " + error.code + " " + error.message);
@@ -54,7 +54,7 @@ var gameRecordList = queryInit();
 // ==== Angular UI ====
 
 var update = null;
-function uiInit() {
+function uiInit(list) {
   var gameHistory1002 = angular.module('gameHistory1002', []);
   gameHistory1002.controller('gameRecordListController', [ '$scope', function($scope) {
     $scope.form = {};
@@ -68,13 +68,14 @@ function uiInit() {
       var gameRecord = new GameRecord();
       gameRecord.matching = $scope.form.matching;
       gameRecord.conclusion = $scope.form.conclusion;
+      gameRecord.endDateTime = new Date();
+      gameRecord.set("user", Parse.User.current());
       gameRecord.set("matching", $scope.form.matching);
       gameRecord.set("conclusion", $scope.form.conclusion);
+      gameRecord.set("endDateTime", new Date());
       $scope.addRecord(gameRecord);
     }
     $scope.addRecord = function(gameRecord) {
-      gameRecord.set("user", Parse.User.current());
-      gameRecord.set("endDateTime", new Date());
       $scope.gameRecordList.push(gameRecord);
       gameRecord.save(null, {
         success : fs,
