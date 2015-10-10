@@ -85,7 +85,9 @@ function uiInit(list) {
     }
     function gameRecordListControllerUpdate() {
       while ($scope.gameRecordList.length < gameRecordList.length) {
-        $scope.gameRecordList.push(gameRecordList[$scope.gameRecordList.length]);
+        var record = gameRecordList[$scope.gameRecordList.length];
+        record.matching = record.get("matching");
+        $scope.gameRecordList.push(record);
       }
     }
     update = gameRecordListControllerUpdate;
