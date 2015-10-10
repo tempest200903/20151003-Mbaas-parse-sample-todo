@@ -35,20 +35,11 @@ var GameRecordPO = Parse.Object.extend({
   opponentAfk : null,
 });
 
-function fs(gameRecord) {
-  // Execute any logic that should take place after the object is saved.
-  console.log('New object created with objectId: ' + gameRecord.id);
-}
-function fe(gameRecord, error) {
-  // Execute any logic that should take place if the save fails. error is a
-  // Parse.Error with an error code and message.
-  console.log('Failed to create new object, with error code: ' + error.message);
-}
-
 // ==== angular UI ====
 
 var gameHistory1003 = angular.module('gameHistory1003', []);
 gameHistory1003.controller('gameRecordListController', [ '$scope', function($scope) {
+  $scope.savemessage = '----';
   $scope.gameRecordList = [ {
     matching : 'dummy-m1',
     conclusion : 'dummy-c1',
@@ -60,6 +51,20 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   } ];
   $scope.save = function() {
     console.log('save');
+    function fs(gameRecord) {
+      var s = 'New object created with objectId: ' + gameRecord.id;
+      console.log(s);
+      $scope.$apply(function() {
+        $scope.savemessage = s;
+      });
+    }
+    function fe(gameRecord, error) {
+      var s = 'Failed to create new object, with error code: ' + error.message;
+      console.log(s);
+      $scope.$apply(function() {
+        $scope.savemessage = s;
+      });
+    }
     $.each($scope.gameRecordList, function(index, element) {
       console.log(element);
       var gameRecordPO = new GameRecordPO();
