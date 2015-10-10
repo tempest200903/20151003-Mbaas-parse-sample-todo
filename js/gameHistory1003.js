@@ -39,7 +39,8 @@ var GameRecordPO = Parse.Object.extend({
 
 var gameHistory1003 = angular.module('gameHistory1003', []);
 gameHistory1003.controller('gameRecordListController', [ '$scope', function($scope) {
-  $scope.savemessage = '----';
+  $scope.saveMessage = '----';
+  $scope.loadMessage = '----';
   $scope.gameRecordList = [ {
     matching : 'dummy-m1',
     conclusion : 'dummy-c1',
@@ -51,28 +52,30 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   } ];
   $scope.save = function() {
     console.log('save');
-    function fs(gameRecord) {
-      var s = 'New object created with objectId: ' + gameRecord.id;
-      console.log(s);
+    function showSaveMessage(message) {
+      console.log(message);
       $scope.$apply(function() {
-        $scope.savemessage = s;
+        $scope.saveMessage = message;
       });
     }
-    function fe(gameRecord, error) {
-      var s = 'Failed to create new object, with error code: ' + error.message;
-      console.log(s);
-      $scope.$apply(function() {
-        $scope.savemessage = s;
-      });
+    function saveCallbackSuccess(gameRecord) {
+      showSaveMessage('New object created with objectId: ' + gameRecord.id);
+    }
+    function saveCallbackError(gameRecord, error) {
+      showSaveMessage('Failed to create new object, with error code: ' + error.message);
     }
     $.each($scope.gameRecordList, function(index, element) {
       console.log(element);
       var gameRecordPO = new GameRecordPO();
       gameRecordPO.set('matching', element.matching);
       gameRecordPO.save(null, {
-        success : fs,
-        error : fe
+        success : saveCallbackSuccess,
+        error : saveCallbackError
       });
     });
   };
+  $scope.load = function() {
+    console.log('load');
+  };
+
 } ]);
