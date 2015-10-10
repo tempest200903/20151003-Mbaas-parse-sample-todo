@@ -44,11 +44,11 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   $scope.gameRecordList = [ {
     matching : 'dummy-m1',
     conclusion : 'dummy-c1',
-    endDateTime : 'dummy-e1'
+    endDateTime : new Date()
   }, {
     matching : 'dummy-m2',
     conclusion : 'dummy-c2',
-    endDateTime : 'dummy-e2'
+    endDateTime : new Date()
   } ];
   $scope.save = function() {
     console.log('save');
@@ -68,6 +68,8 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
       console.log(element);
       var gameRecordPO = new GameRecordPO();
       gameRecordPO.set('matching', element.matching);
+      gameRecordPO.set('conclusion', element.conclusion);
+      gameRecordPO.set('endDateTime', element.endDateTime);
       gameRecordPO.save(null, {
         success : saveCallbackSuccess,
         error : saveCallbackError
@@ -76,6 +78,35 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   };
   $scope.load = function() {
     console.log('load');
+    function showLoadMessage(message) {
+      console.log(message);
+      $scope.$apply(function() {
+        $scope.loadMessage = message;
+      });
+    }
+    var query = new Parse.Query(GameRecordPO);
+    query.find({
+      success : function(results) {
+        showLoadMessage('success. length =: ' + results.length);
+        updateGameRecordList(results);
+      },
+      error : function(error) {
+        showLoadMessage("Error: " + error.code + " " + error.message);
+      }
+    })
+    function updateGameRecordList(results) {
+      console.log('updateGameRecordList, results =: ' + results);
+      $scope.$apply(function() {
+        $scope.gameRecordList.length = 0;
+        $.each(results, function(index, gameRecordPO) {
+          var element = {}
+          element.matching = gameRecordPO.get('matching');
+          element.conclusion = gameRecordPO.get('conclusion');
+          element.endDateTime = gameRecordPO.get('endDateTime');
+          $scope.gameRecordList.push(element);
+        });
+      });
+    }
   };
 
 } ]);
