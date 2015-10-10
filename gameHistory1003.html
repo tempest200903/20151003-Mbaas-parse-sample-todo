@@ -13,6 +13,7 @@
   <div class="panel" ng-controller="gameRecordListController">
     <form action="">
       <p>Game Record list</p>
+      <input type="button" value="save" ng-click="save();" />
       <table class="gameRecordList">
         <tr class="gameRecordList">
           <th class="gameRecordList">matching</th>
@@ -37,7 +38,7 @@
           </td>
           <td></td>
           <!-- . -->
-          <td class="gameRecordList"><input type="button" value="add"></td>
+          <td class="gameRecordList"><input type="button" value="add" /></td>
         </tr>
         <tr class="gameRecordList" ng-repeat="gameRecord in gameRecordList">
           <!-- . -->
@@ -47,7 +48,7 @@
           <!-- . -->
           <td class="gameRecordList">{{gameRecord.endDateTime}}</td>
           <!-- . -->
-          <td class="gameRecordList"><input type="button" value="delete"></td>
+          <td class="gameRecordList"><input type="button" value="delete" /></td>
         </tr>
       </table>
     </form>

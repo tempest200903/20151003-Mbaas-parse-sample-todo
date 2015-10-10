@@ -18,4 +18,7 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
     conclusion : 'dummy-c2',
     endDateTime : 'dummy-e2'
   } ];
+  $scope.save = function() {
+    console.log('save');
+  };
 } ]);
