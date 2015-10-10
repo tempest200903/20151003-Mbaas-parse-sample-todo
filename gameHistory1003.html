@@ -10,8 +10,47 @@
 <script src="js/gameHistory1003.js"></script>
 </head>
 <body>
-
-
-
+  <div class="panel" ng-controller="gameRecordListController">
+    <form action="">
+      <p>Game Record list</p>
+      <table class="gameRecordList">
+        <tr class="gameRecordList">
+          <th class="gameRecordList">matching</th>
+          <th class="gameRecordList">conclusion</th>
+          <th class="gameRecordList">endDateTime</th>
+          <th class="gameRecordList">add / delete</th>
+        </tr>
+        <tr class="gameRecordList">
+          <!-- . -->
+          <td class="gameRecordList">
+            <!-- カジュアル or ランク --> <label>matching: </label> <select id="matching">
+              <option>casual</option>
+              <option>rank</option>
+          </select>
+          </td>
+          <!-- . -->
+          <td class="gameRecordList">
+            <!-- 勝敗 --> <label>conclusion: </label> <!--  --> <select id="conclusion">
+              <option>win</option>
+              <option>lose</option>
+          </select> <br>
+          </td>
+          <td></td>
+          <!-- . -->
+          <td class="gameRecordList"><input type="button" value="add"></td>
+        </tr>
+        <tr class="gameRecordList" ng-repeat="gameRecord in gameRecordList">
+          <!-- . -->
+          <td class="gameRecordList">{{gameRecord.matching}}</td>
+          <!-- . -->
+          <td class="gameRecordList">{{gameRecord.conclusion}}</td>
+          <!-- . -->
+          <td class="gameRecordList">{{gameRecord.endDateTime}}</td>
+          <!-- . -->
+          <td class="gameRecordList"><input type="button" value="delete"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </body>
 </html>

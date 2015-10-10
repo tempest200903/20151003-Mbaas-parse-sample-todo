@@ -7,3 +7,15 @@ if (!Parse.User.current()) {
   window.location.href = "index.html";
 }
 
+var gameHistory1003 = angular.module('gameHistory1003', []);
+gameHistory1003.controller('gameRecordListController', [ '$scope', function($scope) {
+  $scope.gameRecordList = [ {
+    matching : 'dummy-m1',
+    conclusion : 'dummy-c1',
+    endDateTime : 'dummy-e1'
+  }, {
+    matching : 'dummy-m2',
+    conclusion : 'dummy-c2',
+    endDateTime : 'dummy-e2'
+  } ];
+} ]);
