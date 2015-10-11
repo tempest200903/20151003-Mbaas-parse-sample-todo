@@ -42,17 +42,8 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   $scope.saveMessage = '----';
   $scope.loadMessage = '----';
   $scope.gameRecordList = [];
-  if (false) {
-    $scope.gameRecordList = [ {
-      matching : 'dummy-m1',
-      conclusion : 'dummy-c1',
-      endDateTime : new Date()
-    }, {
-      matching : 'dummy-m2',
-      conclusion : 'dummy-c2',
-      endDateTime : new Date()
-    } ];
-  }
+  $scope.gameRecordDeleteList = [];
+  $scope.gameRecordPOList = [];
   $scope.save = function() {
     console.log('save');
     function showSaveMessage(message) {
@@ -61,22 +52,32 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
         $scope.saveMessage = message;
       });
     }
-    function saveCallbackSuccess(gameRecord) {
-      showSaveMessage('New object created with objectId: ' + gameRecord.id);
-    }
     function saveCallbackError(gameRecord, error) {
       showSaveMessage('Failed to create new object, with error code: ' + error.message);
     }
     $.each($scope.gameRecordList, function(index, element) {
       console.log(element);
-      var gameRecordPO = new GameRecordPO();
+      var filtered = $.grep($scope.gameRecordPOList, function(po, index) {
+        console.log('element.id =: ' + element.id);
+        return po.id == element.id;
+      });
+      console.log('filtered.length =: ' + filtered.length);
+      var gameRecordPO = filtered.length > 0 ? filtered[0] : new GameRecordPO();
       gameRecordPO.set('matching', element.matching);
       gameRecordPO.set('conclusion', element.conclusion);
       gameRecordPO.set('endDateTime', element.endDateTime);
+      function saveCallbackSuccess(savedGameRecordPO) {
+        showSaveMessage('New object created with objectId: ' + savedGameRecordPO.id);
+        element.id = savedGameRecordPO.id;
+        console.log('element.id =: ' + element.id);
+      }
       gameRecordPO.save(null, {
         success : saveCallbackSuccess,
         error : saveCallbackError
       });
+    });
+    $.each($scope.gameRecordDeleteList, function(index, id) {
+      console.log('id =: ' + id);
     });
   };
   $scope.load = function() {
@@ -99,10 +100,12 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
     })
     function updateGameRecordList(results) {
       console.log('updateGameRecordList, results =: ' + results);
+      $scope.gameRecordPOList = results;
       $scope.$apply(function() {
         $scope.gameRecordList.length = 0;
         $.each(results, function(index, gameRecordPO) {
           var element = {}
+          element.id = gameRecordPO.id;
           element.matching = gameRecordPO.get('matching');
           element.conclusion = gameRecordPO.get('conclusion');
           element.endDateTime = gameRecordPO.get('endDateTime');
@@ -122,6 +125,9 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   };
   $scope.deleteRecord = function(index) {
     console.log('deleteRecord index =: ' + index);
+    var id = $scope.gameRecordList[index].id;
+    console.log('id =: ' + id);
     $scope.gameRecordList.splice(index, 1);
+    $scope.gameRecordDeleteList.push(id);
   };
 } ]);
