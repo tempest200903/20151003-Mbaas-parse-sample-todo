@@ -41,15 +41,18 @@ var gameHistory1003 = angular.module('gameHistory1003', []);
 gameHistory1003.controller('gameRecordListController', [ '$scope', function($scope) {
   $scope.saveMessage = '----';
   $scope.loadMessage = '----';
-  $scope.gameRecordList = [ {
-    matching : 'dummy-m1',
-    conclusion : 'dummy-c1',
-    endDateTime : new Date()
-  }, {
-    matching : 'dummy-m2',
-    conclusion : 'dummy-c2',
-    endDateTime : new Date()
-  } ];
+  $scope.gameRecordList = [];
+  if (false) {
+    $scope.gameRecordList = [ {
+      matching : 'dummy-m1',
+      conclusion : 'dummy-c1',
+      endDateTime : new Date()
+    }, {
+      matching : 'dummy-m2',
+      conclusion : 'dummy-c2',
+      endDateTime : new Date()
+    } ];
+  }
   $scope.save = function() {
     console.log('save');
     function showSaveMessage(message) {
@@ -107,6 +110,15 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
         });
       });
     }
+  };
+  $scope.addRecord = function() {
+    console.log('addRecord');
+    var r = {
+      matching : $scope.new_matching,
+      conclusion : $scope.new_conclusion,
+      endDateTime : new Date()
+    };
+    $scope.gameRecordList.push(r);
   };
 
 } ]);

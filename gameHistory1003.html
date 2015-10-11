@@ -34,21 +34,22 @@
         <tr class="gameRecordList">
           <!-- . -->
           <td class="gameRecordList">
-            <!-- カジュアル or ランク --> <label>matching: </label> <select id="matching">
+            <!-- カジュアル or ランク --> <select id="matching" ng-model="new_matching">
               <option>casual</option>
               <option>rank</option>
           </select>
           </td>
           <!-- . -->
           <td class="gameRecordList">
-            <!-- 勝敗 --> <label>conclusion: </label> <!--  --> <select id="conclusion">
+            <!-- 勝敗 --> <select id="conclusion" ng-model="new_conclusion">
               <option>win</option>
               <option>lose</option>
           </select> <br>
           </td>
-          <td></td>
+          <td>now</td>
           <!-- . -->
-          <td class="gameRecordList"><input type="button" value="add" /></td>
+          <td class="gameRecordList"><input type="button" value="add"
+            ng-click="addRecord();" /></td>
         </tr>
         <tr class="gameRecordList" ng-repeat="gameRecord in gameRecordList">
           <!-- . -->
