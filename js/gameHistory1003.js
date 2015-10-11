@@ -120,5 +120,8 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
     };
     $scope.gameRecordList.push(r);
   };
-
+  $scope.deleteRecord = function(index) {
+    console.log('deleteRecord index =: ' + index);
+    $scope.gameRecordList.splice(index, 1);
+  };
 } ]);

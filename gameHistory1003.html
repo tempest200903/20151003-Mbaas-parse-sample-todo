@@ -59,7 +59,8 @@
           <!-- . -->
           <td class="gameRecordList">{{gameRecord.endDateTime}}</td>
           <!-- . -->
-          <td class="gameRecordList"><input type="button" value="delete" /></td>
+          <td class="gameRecordList"><input type="button" value="delete"
+            ng-click="deleteRecord($index);" /></td>
         </tr>
       </table>
     </form>
