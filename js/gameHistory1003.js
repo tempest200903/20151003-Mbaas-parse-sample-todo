@@ -81,6 +81,7 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
     });
     $.each($scope.gameRecordDeleteList, function(index, id) {
       console.log('id =: ' + id);
+      
     });
   };
   // ---- load ----
