@@ -44,6 +44,7 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
   $scope.gameRecordList = [];
   $scope.gameRecordDeleteList = [];
   $scope.gameRecordPOList = [];
+  // ---- save ----
   $scope.save = function() {
     console.log('save');
     function showSaveMessage(message) {
@@ -55,21 +56,23 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
     function saveCallbackError(gameRecord, error) {
       showSaveMessage('Failed to create new object, with error code: ' + error.message);
     }
-    $.each($scope.gameRecordList, function(index, element) {
-      console.log(element);
-      var filtered = $.grep($scope.gameRecordPOList, function(po, index) {
-        console.log('element.id =: ' + element.id);
-        return po.id == element.id;
-      });
-      console.log('filtered.length =: ' + filtered.length);
-      var gameRecordPO = filtered.length > 0 ? filtered[0] : new GameRecordPO();
-      gameRecordPO.set('matching', element.matching);
-      gameRecordPO.set('conclusion', element.conclusion);
-      gameRecordPO.set('endDateTime', element.endDateTime);
+    $.each($scope.gameRecordList, function(index, gameRecord) {
+      console.log(gameRecord);
+      function findGameRecordPO(aGameRecord) {
+        if (aGameRecord.id == null) {
+          return new GameRecordPO();
+        }
+        var grep = $.grep($scope.gameRecordPOList, function(po, index) {
+          return po.id == aGameRecord.id;
+        });
+        return grep[0];
+      }
+      var gameRecordPO = findGameRecordPO(gameRecord);
       function saveCallbackSuccess(savedGameRecordPO) {
+        $scope.gameRecordPOList.push(savedGameRecordPO);
+        gameRecord.id = savedGameRecordPO.id;
         showSaveMessage('New object created with objectId: ' + savedGameRecordPO.id);
-        element.id = savedGameRecordPO.id;
-        console.log('element.id =: ' + element.id);
+        console.log('gameRecord.id =: ' + gameRecord.id);
       }
       gameRecordPO.save(null, {
         success : saveCallbackSuccess,
@@ -80,6 +83,7 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
       console.log('id =: ' + id);
     });
   };
+  // ---- load ----
   $scope.load = function() {
     console.log('load');
     function showLoadMessage(message) {
@@ -104,12 +108,12 @@ gameHistory1003.controller('gameRecordListController', [ '$scope', function($sco
       $scope.$apply(function() {
         $scope.gameRecordList.length = 0;
         $.each(results, function(index, gameRecordPO) {
-          var element = {}
-          element.id = gameRecordPO.id;
-          element.matching = gameRecordPO.get('matching');
-          element.conclusion = gameRecordPO.get('conclusion');
-          element.endDateTime = gameRecordPO.get('endDateTime');
-          $scope.gameRecordList.push(element);
+          var gameRecord = {}
+          gameRecord.id = gameRecordPO.id;
+          gameRecord.matching = gameRecordPO.get('matching');
+          gameRecord.conclusion = gameRecordPO.get('conclusion');
+          gameRecord.endDateTime = gameRecordPO.get('endDateTime');
+          $scope.gameRecordList.push(gameRecord);
         });
       });
     }
